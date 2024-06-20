@@ -38,36 +38,41 @@ const Login = () => {
     }
 
     const onClickSubmit = async () => {
-        if (!data.email || !data.password) {
-            toast.error('All Fields Are Required !')
-            return
-        }
-        if (data.email == adminEmail && data.password == adminPass) {
-            navigate('/adminDashboard')
-            sessionStorage.setItem('email',data.email)
-            sessionStorage.setItem('user','Admin')
-            toast.success('Admin Logged In !')
-            return
-        }
-        else {
-            let headers = {
-                "Content-Type": "application/json"
+        try {
+            if (!data.email || !data.password) {
+                toast.error('All Fields Are Required !')
+                return
             }
-            let body = JSON.stringify({
-                email: data.email,
-                password: data.password
-            })
+            if (data.email == adminEmail && data.password == adminPass) {
+                navigate('/adminDashboard')
+                sessionStorage.setItem('email', data.email)
+                sessionStorage.setItem('user', 'Admin')
+                toast.success('Admin Logged In !')
+                return
+            }
+            else {
+                let headers = {
+                    "Content-Type": "application/json"
+                }
+                let body = JSON.stringify({
+                    email: data.email,
+                    password: data.password
+                })
 
-            let response = await ApiCaller(body, headers, '/emp/login')
-            if (response.statusCode == '000') {
-                dispatch(getEmpProfileData(response.data))
-                toast.success(`Welcome 🤗 ${response.data.user.name}`)
-                navigate('/empDashboard')
+                let response = await ApiCaller(body, headers, '/emp/login')
+                if (response.statusCode == '000') {
+                    dispatch(getEmpProfileData(response.data))
+                    toast.success(`Welcome 🤗 ${response.data.user.name}`)
+                    navigate('/empDashboard')
+                }
+                else (
+                    toast.error(response.message)
+                )
             }
-            else (
-                toast.error(response.message)
-            )
+        } catch (error) {
+            console.log(error);
         }
+
     }
 
 

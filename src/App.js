@@ -13,19 +13,17 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register/" element={<Register />} />
         <Route
           path="/adminDashboard/*" element={
             <AdminContextProvider>
               <Admin />
             </AdminContextProvider>} />
-
         <Route
           path="/empDashboard/*" element={
             <EmpContextProvider>
               <Employee />
             </EmpContextProvider>} />
-
         <Route path="*" element={<div>Module Not Found</div>} />
       </Routes>
     </>

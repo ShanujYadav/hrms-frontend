@@ -21,7 +21,6 @@ const AdminHome = () => {
           toast.error('Please Login First')
         }
       }, [])
-
     useEffect(() => {
         let isMounted = true;
         const fetchData = async () => {

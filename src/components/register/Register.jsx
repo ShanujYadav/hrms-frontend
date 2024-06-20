@@ -122,7 +122,6 @@ const Register = () => {
         },
     }
 
-
     return (
         <div className="container mx-auto p-3">
             <div className="max-w-4xl mx-auto mb-0 font-[sans-serif] text-[#333] p-6">
@@ -133,9 +132,6 @@ const Register = () => {
                     <h4 className="text-base text-lg font-semibold mt-3">Sign up into your account</h4>
                 </div>
             </div>
-
-
-
 
             <div className="p-4 rounded-xl">
                 <form>
