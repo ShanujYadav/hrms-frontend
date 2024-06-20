@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { ApiCaller } from '../../utils/ApiCaller';
+import { useNavigate } from 'react-router-dom';
 
 const Leave = () => {
+  const navigate = useNavigate()
   const id = sessionStorage.getItem('id')
   const name = sessionStorage.getItem('name')
   const accessToken = sessionStorage.getItem('accessToken')
 
-  const [data, setData] = useState({
+  const initialState = {
     leaveType: '',
     fromDate: '',
     toDate: '',
     leaveDays: '',
-  })
+  };
+
+  const [data, setData] = useState(initialState)
 
   const [leaveStatus, setLeaveStatus] = useState({
     status: '',
@@ -29,8 +33,9 @@ const Leave = () => {
     setData({ ...data, [name]: value })
   }
 
-  useState(() => {
+  useEffect(() => {
     if (!name || !id || !accessToken) {
+      navigate('/')
       toast.error('Please Login First')
     }
   }, [])
@@ -70,17 +75,16 @@ const Leave = () => {
         leaveDays: noOfDays,
       })
       let response = await ApiCaller(body, headers, '/leave/reqForLeave')
-      console.log('response----', response)
       if (response.statusCode == '000') {
         toast.success(response.message)
+        fetchApplicationStatus()
+        setData(initialState)
       }
       else (
         toast.error(response.message)
       )
     }
-
   }
-
 
 
   const fetchApplicationStatus = async () => {
@@ -93,7 +97,6 @@ const Leave = () => {
       applicantId: id,
     })
     let response = await ApiCaller(body, headers, '/leave/leaveStatus')
-    console.log('leaveStatus----', response)
     if (response.statusCode == '000') {
       setLeaveStatus({
         ...leaveStatus,
@@ -173,84 +176,53 @@ const Leave = () => {
 
       {leaveStatus.status != '' && (
         <div className='mt-5 rounded-xl bg-white pb-2'>
-          <h3 className='block text-gray-700 text-sm font-bold p-3'>Leave Application</h3>
-          <hr />
-          <div >
-            <div class="relative h-50 my-4 ml-5 mr-4 flex flex-grow flex-row items-center rounded-[10px] border-[1px] border-gray-200  bg-blue-200   dark:border-[#ffffff33] dark:bg-navy-800 dark:text-white dark:shadow-none ">
-              <div class="ml-[12px] h-[100px] w-full flex-row items-center overflow-hidden">
-                <table class="w-full">
-                  <thead>
-                    <tr>
-                      <th class="text-sm mb-2 text-left mt-4 font-medium text-black-500 py-3 px-2">From Date</th>
-                      <th class="text-sm mb-2 text-left mt-4 font-medium text-black-500 px-2">From Date</th>
-                      <th class="text-sm mb-2 text-left mt-4 font-medium text-black-500 px-2">Leave Type</th>
-                      <th class="text-sm mb-2 text-left mt-4 font-medium text-black-500 px-2">Days</th>
-                      <th class="text-sm mb-2 text-left mt-4 font-medium text-black-500 px-2">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody class="">
-                    <tr>
-                      <td class="px-2 py-2">
-                        <div class="flex items-center">
-                          <div>
-                            <div class="text-sm leading-5 font-medium text-gray-600">{leaveStatus.fromDate}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-2 py-2 whitespace-no-wrap ">
-                        <div class="text-sm leading-5 font-medium text-gray-600">{leaveStatus.toDate}</div>
-                      </td>
-                      <td class="px-2 py-2 whitespace-no-wrap font-medium text-gray-600  text-sm leading-5">{leaveStatus.leaveType}
-                      </td>
-                      <td class="px-2 py-2 whitespace-no-wrap font-medium text-gray-600 text-sm leading-5">{leaveStatus.leaveDays}
-                      </td>
-                      <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                        {leaveStatus.status == 'Success' ? (
-                          <div class="inline-flex items-center px-2 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
-                            <h2 class="text-sm font-medium">Success</h2>
-                          </div>
-                        ) : (
-                          <div class="inline-flex items-center px-2 py-1 text-blue-500 rounded-full gap-x-2 bg-blue-100/60 dark:bg-gray-800">
-                            <h2 class="text-sm font-medium">Pending</h2>
-                          </div>
-                        )
-                        }
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <h3 className='block text-gray-700 text-sm font-bold p-3'>Last Application</h3>
+         <hr />
+        <div class="relative h-auto mt-3 mb-1 ml-5 mr-4 flex flex-grow flex-row items-center rounded-[10px] border-[2px] border-blue-400 bg-blue-100 bg-clip-border dark:border-[#ffffff33] dark:bg-navy-800 dark:text-white dark:shadow-none">
+          <div class="ml-[12px] w-full flex flex-col overflow-auto">
+            <table class="w-full ">
+              <thead>
+                <tr>
+                  <th class="px-5 py-3 text-left leading-4 text-black-500 tracking-wider">From Date</th>
+                  <th class="px-5 py-3 text-left text-sm leading-4 text-black-500 tracking-wider">To date</th>
+                  <th class="px-5 py-3 text-left text-sm leading-4 text-black-500 tracking-wider">Leave type</th>
+                  <th class="px-5 py-3 text-left text-sm leading-4 text-black-500 tracking-wider">Leave days</th>
+                  <th class="px-5 py-3 text-left text-sm leading-4 text-black-500 tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-4 py-2">
+                    <div class="flex items-center">
+                      <div>
+                        <div class="text-sm font-semibold leading-5 text-black">{leaveStatus.fromDate}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-4 py-2 whitespace-no-wrap">
+                    <div class="text-sm leading-5 font-semibold text-black">{leaveStatus.toDate}</div>
+                  </td>
+                  <td class="px-4 py-2 whitespace-no-wrap font-semibold text-black text-sm leading-5">{leaveStatus.leaveType}</td>
+                  <td class="px-4 py-2 whitespace-no-wrap font-semibold text-black text-sm leading-5">{leaveStatus.leaveDays}</td>
+                  <td class="px-4 py-2 whitespace-no-wrap font-semibold text-black text-sm leading-5">
+                    {leaveStatus.status == 'Success' ? (
+                      <div class="inline-flex items-center px-2 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
+                        <h2 class="text-sm font-medium">Success</h2>
+                      </div>
+                    ) : (
+                      <div class="inline-flex items-center px-2 text-blue-500 rounded-full gap-x-2 bg-blue-100/60 dark:bg-gray-800">
+                        <h2 class="text-sm font-medium">Pending</h2>
+                      </div>
+                    )
+                    }
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      )
-      }
-
-
-      <div>
-        {/* <Modal
-            isOpen={openModal}
-            onRequestClose={onCloseModal}
-            style={customStyles}
-            contentLabel="Example Modal">
-            <div class="text-center p-6 bg-white rounded-lg ">
-                <div class="flex items-center justify-center mb-4">
-                    <svg class="w-24 h-24 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 4a9 9 0 1 1-18 0a9 9 0 0 1 18 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold text-gray-800 mb-4">Request Sent Successfully !</h1>
-                </div>
-                <button class="bg-blue-500 text-white px-4 py-0.5 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    onClick={onCloseModal}
-                >
-                    OK
-                </button>
-            </div>
-        </Modal> */}
-      </div>
-
+        </div>
+      )}
     </div>
   )
 }

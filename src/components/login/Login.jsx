@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../assets/img/logo.png'
 import altlogo from '../../assets/img/altlogo.png'
 import { useNavigate } from 'react-router-dom'
-import { ApiCaller } from '../utils/ApiCaller'
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux'
+import { getEmpLogin } from '../../store/action/HomeAction';
+import { ApiCaller } from '../utils/ApiCaller';
+import { getEmpProfileData } from '../../store/action/ProfileAction';
 
 
 const Login = () => {
     const adminEmail = 'admin@gmail.com'
     const adminPass = 'admin'
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        sessionStorage.clear()
+    }, [])
 
     const [error, setError] = useState({
         email: false,
@@ -30,10 +37,16 @@ const Login = () => {
 
     }
 
-
     const onClickSubmit = async () => {
+        if (!data.email || !data.password) {
+            toast.error('All Fields Are Required !')
+            return
+        }
         if (data.email == adminEmail && data.password == adminPass) {
             navigate('/adminDashboard')
+            sessionStorage.setItem('email',data.email)
+            sessionStorage.setItem('user','Admin')
+            toast.success('Admin Logged In !')
             return
         }
         else {
@@ -44,28 +57,11 @@ const Login = () => {
                 email: data.email,
                 password: data.password
             })
+
             let response = await ApiCaller(body, headers, '/emp/login')
-            console.log('response----', response)
-
             if (response.statusCode == '000') {
-                toast.success(response.message)
-
-
-                // Profle Data
-                localStorage.setItem("address", response.data.user.address)
-                localStorage.setItem("dateOfBirth", response.data.user.dateOfBirth)
-                localStorage.setItem("education", response.data.user.education)
-                localStorage.setItem("email", response.data.user.email)
-                localStorage.setItem("img", response.data.user.img)
-                localStorage.setItem("name", response.data.user.name)
-                localStorage.setItem("phone", response.data.user.phone)
-                localStorage.setItem("role", response.data.user.role)
-                localStorage.setItem("joiningDate", response.data.user.joiningDate)
-
-
-                sessionStorage.setItem("accessToken", response.data.accessToken)
-                sessionStorage.setItem("id", response.data.user._id)
-                sessionStorage.setItem("name", response.data.user.name)
+                dispatch(getEmpProfileData(response.data))
+                toast.success(`Welcome 🤗 ${response.data.user.name}`)
                 navigate('/empDashboard')
             }
             else (
@@ -74,7 +70,7 @@ const Login = () => {
         }
     }
 
-    
+
     return (
         <div class="flex h-screen">
             <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">

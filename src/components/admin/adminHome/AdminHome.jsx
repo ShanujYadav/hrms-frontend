@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { ApiCaller } from '../../utils/ApiCaller';
 import { BsExclamationLg } from "react-icons/bs";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const AdminHome = () => {
+    const navigate=useNavigate()
+    const email = sessionStorage.getItem('email')
+    const user = sessionStorage.getItem('user')
+
     const [totalEmp, setTotalEmp] = useState(0)
     const [pendingReq, setPendingReq] = useState(0)
     const [onLeave, setOnLeaave] = useState(0)
+    const [leaveReq, setLeaveReq] = useState(0)
+
+    useEffect(() => {
+        if (!email || !user ) {
+          navigate('/')
+          toast.error('Please Login First')
+        }
+      }, [])
 
     useEffect(() => {
         let isMounted = true;
@@ -14,16 +28,21 @@ const AdminHome = () => {
             let headers = {}
             let body = {}
             try {
-                let emp = await ApiCaller(body, headers, '/emp/empList');
+                let emp = await ApiCaller(body, headers, '/emp/empList')
                 let req = await ApiCaller(body, headers, '/emp/reqRegisterList')
+                let leaveList = await ApiCaller(body, headers, '/leave/reqleaveList')
                 if (isMounted && emp.statusCode === '000') {
                     setTotalEmp(emp.data.length)
                 }
                 if (isMounted && req.statusCode === '000') {
                     setPendingReq(req.data.length)
                 }
+                if (isMounted && leaveList.statusCode === '000') {
+                    setLeaveReq(req.data.length)
+                }
                 else {
                     setTotalEmp(0)
+                    setLeaveReq(0)
                     setPendingReq(0)
                 }
             } catch (e) {
@@ -38,6 +57,8 @@ const AdminHome = () => {
             isMounted = false;
         }
     }, [])
+
+    console.log("leaveReq---",leaveReq)
     return (
         <>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-4">
@@ -55,7 +76,7 @@ const AdminHome = () => {
                         <BsExclamationLg  color='blue' size={35}/>
                     </div>
                     <div class="text-right">
-                        <p class="text-2xl">{pendingReq}</p>
+                        <p class="text-2xl">{pendingReq+leaveReq}</p>
                         <p>Pending Request</p>
                     </div>
                 </div>

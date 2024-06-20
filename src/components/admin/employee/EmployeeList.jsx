@@ -3,9 +3,22 @@ import { ApiCaller } from '../../utils/ApiCaller';
 import { LuPencil } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const EmployeeList = () => {
+    const navigate=useNavigate()
+    const email = sessionStorage.getItem('email')
+    const user = sessionStorage.getItem('user')
     const [employee, setEmployee] = useState([])
+
+    useEffect(() => {
+        if (!email || !user ) {
+          navigate('/')
+          toast.error('Please Login First')
+        }
+      }, [])
 
 
     useEffect(() => {

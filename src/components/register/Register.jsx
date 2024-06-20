@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import profileDemo from '../../assets/img/profileImgDemo.jpg';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+const todayDate = new Date()
 
 
 const Register = () => {
@@ -23,10 +23,23 @@ const Register = () => {
         photo: null,
         doj: '',
         address: '',
-        education: ''
+        education: '',
+        gender: ''
     })
 
-
+    const compareDates=(date1, date2)=> {
+        const parsedDate1 = new Date(date1);
+        const [year, month, day] = date2.split('-').map(Number)
+        const parsedDate2 = new Date(year, month - 1, day);
+        if (parsedDate1.getTime() < parsedDate2.getTime()) {
+          return false
+        } else if (parsedDate1.getTime() > parsedDate2.getTime()) {
+          return true
+        } else {
+          return false
+        }
+      }
+      
     const previewImage = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -40,17 +53,30 @@ const Register = () => {
     }
 
 
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
     }
 
 
-
-
     const onClickSubmit = async (e) => {
         e.preventDefault()
+        const validDob = compareDates(todayDate, data.dob)
+        const validDoj = compareDates(todayDate, data.doj)
+
+        if (!data.address || !data.dob || !data.doj || !data.education || !data.email || !data.gender || !data.mobile || !data.name || !data.password || !data.photo || !data.role) {
+            toast.error('All Fields are Required !')
+            return
+        }
+        if(!validDob){
+            toast.error('Please Selcet a Valid Date of Birth !')
+            return
+        }
+        if(!validDoj){
+            toast.error('Please Selcet a Valid Date of Joining !')
+            return
+        }
+        setOpenModal(true)
         try {
             const formData = new FormData()
             formData.append('name', data.name);
@@ -63,8 +89,10 @@ const Register = () => {
             formData.append('address', data.address);
             formData.append('password', data.password);
             formData.append('education', data.education);
+            formData.append('gender', data.gender);
             let headers = {}
             let response = await ApiCaller(formData, headers, '/emp/reqForRegister')
+            setOpenModal(false)
             if (response.statusCode == '000') {
                 toast.success(response.message)
                 navigate('/')
@@ -77,9 +105,11 @@ const Register = () => {
         }
     }
 
+
     const onCloseModal = () => {
         setOpenModal(false)
     }
+
 
     const customStyles = {
         content: {
@@ -148,6 +178,8 @@ const Register = () => {
                             <input
                                 name="mobile"
                                 type="tel"
+                                max={10}
+                                maxLength={10}
                                 className="bg-gray-100 w-full text-muted px-4 py-3.5 rounded-md outline-blue-500"
                                 placeholder="Enter mobile number"
                                 value={data.mobile}
@@ -178,7 +210,7 @@ const Register = () => {
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label className="text-sm mb-2 block mt-4 font-semibold">Date of Birth</label>
                             <input
@@ -215,6 +247,18 @@ const Register = () => {
                                 value={data.address}
                                 onChange={handleChange}
                             />
+                            <label className="text-sm mb-2 block mt-4 font-semibold">Gender</label>
+                            <select
+                                name="gender"
+                                type="text"
+                                className="bg-gray-100 w-full text-muted px-4 py-3.5 rounded-md outline-blue-500"
+                                value={data.gender}
+                                onChange={handleChange}>
+                                <option value="" className='text-muted'>Select Gender</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
 
                     </div>
@@ -230,10 +274,6 @@ const Register = () => {
                 </form>
             </div>
 
-
-
-
-
             <div>
                 <Modal
                     isOpen={openModal}
@@ -241,19 +281,20 @@ const Register = () => {
                     style={customStyles}
                     contentLabel="Example Modal">
                     <div class="text-center p-6 bg-white rounded-lg ">
-                        <div class="flex items-center justify-center mb-4">
-                            <svg class="w-24 h-24 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 4a9 9 0 1 1-18 0a9 9 0 0 1 18 0z"></path>
-                            </svg>
+                        <div class="w-full flex flex-col items-center justify-center gap-2">
+                            <div class="w-full gap-x-2 flex justify-center items-center">
+                                <div
+                                    class="w-5 bg-[#d991c2] animate-pulse h-5 rounded-full animate-bounce"
+                                ></div>
+                                <div
+                                    class="w-5 animate-pulse h-5 bg-[#9869b8] rounded-full animate-bounce"
+                                ></div>
+                                <div
+                                    class="w-5 h-5 animate-pulse bg-[#6756cc] rounded-full animate-bounce"
+                                ></div>
+                            </div>
+                            <div class="mt-2 text-center text-gray-700">Please wait</div>
                         </div>
-                        <div>
-                            <h1 class="text-xl font-bold text-gray-800 mb-4">Request Sent Successfully !</h1>
-                        </div>
-                        <button class="bg-blue-500 text-white px-4 py-0.5 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                            onClick={onCloseModal}
-                        >
-                            OK
-                        </button>
                     </div>
                 </Modal>
             </div>

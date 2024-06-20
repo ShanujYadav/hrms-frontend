@@ -11,9 +11,6 @@ import EmpProfile from "./profile/EmpProfile";
 export default function Employee() {
     const navigate=useNavigate()
     const [currentTab, setCurrentTab] = useState('Dashboard')
-
-    console.log('currentTab----', currentTab);
-
     return (
         <EmpContextProvider>
             <div x-data="setup()">
