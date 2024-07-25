@@ -20,7 +20,6 @@ const EmployeeList = () => {
         }
       }, [])
 
-
     useEffect(() => {
         let isMounted = true;
         async function fetchData() {

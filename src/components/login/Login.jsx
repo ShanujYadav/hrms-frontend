@@ -12,9 +12,10 @@ import { getEmpProfileData } from '../../store/action/ProfileAction';
 const Login = () => {
     const adminEmail = 'admin@gmail.com'
     const adminPass = 'admin'
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
+    
     useEffect(() => {
         sessionStorage.clear()
     }, [])
@@ -34,7 +35,6 @@ const Login = () => {
     }
     const onChangePassHandelar = (enterdPass) => {
         setData({ ...data, password: enterdPass })
-
     }
 
     const onClickSubmit = async () => {

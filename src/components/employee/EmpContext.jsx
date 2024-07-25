@@ -10,7 +10,7 @@ export const EmpContextProvider = (props) => {
     gateway: "",
     amount: "",
   })
-
+  
   return (
     <EmpContext.Provider value={[data, setData, profileDetails]}>
       {props.children}

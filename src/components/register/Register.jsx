@@ -40,6 +40,7 @@ const Register = () => {
         }
       }
       
+      
     const previewImage = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -132,7 +133,6 @@ const Register = () => {
                     <h4 className="text-base text-lg font-semibold mt-3">Sign up into your account</h4>
                 </div>
             </div>
-
             <div className="p-4 rounded-xl">
                 <form>
                     <div className="grid sm:grid-cols-3 gap-y-7 gap-x-12">

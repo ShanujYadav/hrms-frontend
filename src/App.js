@@ -8,12 +8,12 @@ import { EmpContextProvider } from './components/employee/EmpContext';
 import Employee from './components/employee/Employee';
 
 function App() {
-
+  
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/register/" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/adminDashboard/*" element={
             <AdminContextProvider>
