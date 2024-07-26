@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../../assets/img/logo.png'
-import altlogo from '../../assets/img/altlogo.png'
+import altlogo from '../../assets/img/ANlogo.png'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux'
@@ -24,7 +24,7 @@ const Login = () => {
         email: false,
         password: false,
     })
-
+    
     const [data, setData] = useState({
         email: "",
         password: "",

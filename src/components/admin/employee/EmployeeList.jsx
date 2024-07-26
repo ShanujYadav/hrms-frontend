@@ -107,7 +107,7 @@ const EmployeeList = () => {
                                                 <MdDelete size={20} color='#F6685B' />
                                             </a>
                                             <a>
-                                                <LuPencil size={20} color='#787FF1' />
+                                                <LuPencil size={20} color='#787FF1' onClick={()=>navigate('/adminDashboard/employees/profile')}/>
                                             </a>
                                         </div>
                                     </td>

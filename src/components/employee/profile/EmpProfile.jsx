@@ -11,14 +11,14 @@ const EmpProfile = (props) => {
     const name = sessionStorage.getItem('name')
     const accessToken = sessionStorage.getItem('accessToken')
 
+
     useEffect(() => {
       if (!name || !id || !accessToken) {
         navigate('/')
         toast.error('Please Login First')
       }
     }, [])
-  
-
+    
     return (
         <div class="flex flex-col h-screen ">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
