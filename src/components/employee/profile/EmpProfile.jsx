@@ -2,10 +2,18 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { EmpContext } from '../EmpContext'
+import { ApiCaller } from '../../utils/ApiCaller'
 
 const EmpProfile = (props) => {
     const [data, setData, profileDetails] = useContext(EmpContext)
 
+    console.log('profileDetails---',profileDetails)
+
+    const [profileData,setProfileData]=useState(profileDetails)
+
+    console.log('profileDaa---',profileData)
+
+    
     const navigate = useNavigate()
     const id = sessionStorage.getItem('id')
     const name = sessionStorage.getItem('name')
@@ -18,7 +26,35 @@ const EmpProfile = (props) => {
         toast.error('Please Login First')
       }
     }, [])
-    
+
+
+    //  useEffect(() => {
+    //     let isMounted = true;
+    //     async function fetchData() {
+    //         setProfileData('')
+    //         let headers = {};
+    //         let body = {};
+    //         try {
+    //             let response = await ApiCaller(body, headers, '/emp/empList')
+    //             console.log('empList response----', response)
+    //             if (isMounted && response.statusCode === '000') {
+    //                 setProfileData(response.data)
+    //             } else {
+    //                 // setEmployee([])
+    //             }
+    //         } catch (e) {
+    //             if (isMounted) {
+    //                 setProfileData('');
+    //             }
+    //             console.log(e);
+    //         }
+    //     }
+    //     fetchData()
+    //     return () => {
+    //         isMounted = false;
+    //     }
+    // }, [])
+
     return (
         <div class="flex flex-col h-screen ">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">

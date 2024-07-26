@@ -35,8 +35,8 @@ export const profileSlice = createSlice({
             state.empInfo.DOJ = action.payload.user.joiningDate 
             state.empInfo.email = action.payload.user.email
             state.empInfo.imgUrl = action.payload.user.img
-            state.empInfo.role = action.payload.user.education
-            state.empInfo.education = action.payload.user.name
+            state.empInfo.role = action.payload.user.role
+            state.empInfo.education = action.payload.user.education
         })
     }
 })
