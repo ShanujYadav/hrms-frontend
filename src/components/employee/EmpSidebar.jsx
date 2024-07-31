@@ -16,14 +16,15 @@ const EmpSidebar = (props) => {
 
     const customStyles = {
         content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
         },
-    }
+      }
+    
 
     const [activeTab, setActiveTab] = useState('/adminDasboard')
     const onClickTab = (path) => {
@@ -84,31 +85,33 @@ const EmpSidebar = (props) => {
             </div>
 
             <Modal
-                isOpen={openModal}
-                onRequestClose={setOpenModal}
-                style={customStyles}
-                contentLabel="Example Modal">
-                <div class="text-center p-6 bg-white rounded-lg ">
-                    <div class="flex items-center justify-center mb-4">
-                        <svg class="w-24 h-24 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 4a9 9 0 1 1-18 0a9 9 0 0 1 18 0z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-800 mb-4">Are You Sure want to Logout !</h1>
-                    </div>
-                    <button class="bg-white mx-2 text-red-500 border-2 border-gray-600 px-4 py-0.5 rounded hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                        onClick={() => setOpenModal(false)}
-                    >
-                        Cancle
-                    </button>
-                    <button class="bg-blue-500 text-white px-4 py-0.5 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                        onClick={()=>navigate('/')}
-                    >
-                        OK
-                    </button>
-                </div>
-            </Modal>
+          isOpen={openModal}
+          onRequestClose={setOpenModal}
+          style={customStyles}
+          contentLabel="Example Modal">
+          <div class="border p-8 rounded-lg text-center">
+            <div class="text-yellow-500 text-6xl mb-4 flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h2 class="text-xl font-semibold mb-2">Are You Want To Logout !</h2>
+            {/* <p class="text-gray-600">You will accept the user if you click on Yes</p> */}
+            <div class="mt-8 flex justify-center space-x-4">
+              <button
+                onClick={() => setOpenModal(false)}
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">No
+              </button>
+              <button
+                onClick={()=>navigate('/')}
+                class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">Yes
+              </button>
+
+            </div>
+          </div>
+        </Modal>
 
         </div >
     )

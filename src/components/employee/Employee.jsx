@@ -6,7 +6,8 @@ import EmpTopbar from "./EmpTopbar";
 import EmpSidebar from "./EmpSidebar";
 import EmpHome from "./empHome/EmpHome";
 import Leave from "./leave/Leave";
-import EmpProfile from "./profile/EmpProfile";
+import Profile from "./profile/Profile";
+
 
 export default function Employee() {
     const navigate=useNavigate()
@@ -32,7 +33,7 @@ export default function Employee() {
                         <Routes>
                             <Route path="/" element={<EmpHome />} />
                             <Route path="/leave" element={<Leave />} />
-                            <Route path="/profile" element={<EmpProfile />} />
+                            <Route path="/profile" element={<Profile />} />
                             {/* <Route path="/notifications" element={<Notification />} /> */}
                         </Routes>
                     </div>

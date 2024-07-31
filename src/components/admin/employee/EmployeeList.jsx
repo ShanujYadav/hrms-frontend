@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
-const EmployeeList = () => {
+const EmployeeList = (props) => {
     const navigate=useNavigate()
     const email = sessionStorage.getItem('email')
     const user = sessionStorage.getItem('user')
@@ -46,6 +46,8 @@ const EmployeeList = () => {
             isMounted = false;
         }
     }, [])
+
+    console.log('props---',props);
 
     return (
         <>

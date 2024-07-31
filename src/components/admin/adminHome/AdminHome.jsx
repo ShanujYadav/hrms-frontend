@@ -22,22 +22,25 @@ const AdminHome = () => {
         }
       }, [])
     useEffect(() => {
-        let isMounted = true;
+        let isMounted = true
         const fetchData = async () => {
             let headers = {}
             let body = {}
             try {
                 let emp = await ApiCaller(body, headers, '/emp/empList')
+                
                 let req = await ApiCaller(body, headers, '/emp/reqRegisterList')
                 let leaveList = await ApiCaller(body, headers, '/leave/reqleaveList')
                 if (isMounted && emp.statusCode === '000') {
                     setTotalEmp(emp.data.length)
                 }
                 if (isMounted && req.statusCode === '000') {
+                    console.log('setPendingReq',req.data.length)
                     setPendingReq(req.data.length)
                 }
                 if (isMounted && leaveList.statusCode === '000') {
-                    setLeaveReq(req.data.length)
+                    console.log('setLeaveReq',leaveList.data.length)
+                    setLeaveReq(leaveList.data.length)
                 }
                 else {
                     setTotalEmp(0)
@@ -57,7 +60,11 @@ const AdminHome = () => {
         }
     }, [])
 
+
+    console.log("pendingReq---",pendingReq)
+
     console.log("leaveReq---",leaveReq)
+
     return (
         <>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-4">

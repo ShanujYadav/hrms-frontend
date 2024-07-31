@@ -7,11 +7,14 @@ import AdminHome from "./adminHome/AdminHome";
 import AdminTopbar from "./AdminTopbar";
 import EmployeeList from "./employee/EmployeeList";
 import Notification from "./notifications/Notification"
-import Profile from "./employee/Profile";
+import EmpProfile from "./employee/EmpProfile";
 
 export default function Admin() {
     const [currentTab, setCurrentTab] = useState('Dashboard')
-    
+    const [item, setItem] = useState(null)
+
+    console.log('item---',item)
+
 
     return (
         <AdminContextProvider>
@@ -29,24 +32,11 @@ export default function Admin() {
                     </div>
                     <AdminSidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
                     <div class="h-full ml-14 mt-6 mb-10 md:ml-64">
-                        {/* {currentTab == 'employees' ? (
-                            <>
-                                <EmployeeList />
-                            </>
-                        ) : (currentTab == 'notifications' ? (
-                            <>
-                                <Notification />
-                            </>
-                        ) :
-                            <>
-                            </>
-                        )} */}
-
                         <Routes>
                             <Route path="/" element={<AdminHome />} />
-                            <Route path="/employees" element={<EmployeeList />} />
+                            <Route path="/employees" element={<EmployeeList item={item} setItem={setItem}/>} />
                             <Route path="/notifications" element={<Notification />} />
-                            <Route path="/employees/profile" element={<Profile/>} />
+                            <Route path="/employees/empProfile" element={<EmpProfile item={item} setItem={setItem} />} />
                         </Routes>
                     </div>
                 </div>

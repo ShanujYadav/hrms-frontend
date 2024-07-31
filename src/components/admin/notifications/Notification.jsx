@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../AdminContext';
-
+import { RxCrossCircled } from "react-icons/rx";
 
 const Notification = (props) => {
   const [data, setData, profileDetails] = useContext(AdminContext)
@@ -20,14 +20,14 @@ const Notification = (props) => {
   const [openRegModal, setOpenRegModal] = useState(false)
   let isMounted = true
 
-  let initialState={
+  let initialState = {
     id: "",
     fromDate: "",
     toDate: "",
     leaveType: "",
     leaveDays: "",
   }
-  const [onApprove,setOnApprove]=useState(initialState)
+  const [onApprove, setOnApprove] = useState(initialState)
 
   const customStyles = {
     content: {
@@ -75,6 +75,7 @@ const Notification = (props) => {
     }
   }
 
+  
   const onClickRegAction = (id) => {
     setReqId(id)
     setOpenRegModal(true)
@@ -131,7 +132,8 @@ const Notification = (props) => {
 
 
   const onClickLeaveAction = (leaveReq) => {
-    setOnApprove({...onApprove,
+    setOnApprove({
+      ...onApprove,
       id: leaveReq.applicantId,
       fromDate: leaveReq.fromDate,
       toDate: leaveReq.toDate,
@@ -174,7 +176,6 @@ const Notification = (props) => {
   }
 
 
-
   return (
     <>
       <div className="text-xl text-gray-800 font-bold mb-2 ml-4">Pending Requests</div>
@@ -185,7 +186,16 @@ const Notification = (props) => {
         return (
           <div ikey={index} class="relative h-auto mb-2 ml-5  flex flex-grow flex-row items-stretch rounded-[10px] border-[2px] border-yellow-400 bg-yellow-100 bg-clip-border dark:border-[#ffffff33] dark:bg-navy-800 dark:text-white dark:shadow-none">
             <div class="ml-[12px] w-full flex flex-col overflow-hidden">
-              <p class="text-base font-semibold mt-2">Employee Register Request</p>
+            <div class="flex justify-between items-center">
+            <p class="text-base font-semibold mt-2">Employee Register Request</p>
+            <button
+              className="text-black font-semibold py-2 px-4 rounded-full transition-colors duration-200 ease-in-out flex items-center justify-center ml-auto mt-2"
+
+            >
+              <RxCrossCircled size={24} />
+            </button>
+
+          </div>
               <hr class="border-0 bg-black h-px my-2" />
               <table class="w-full ">
                 <thead>
@@ -217,6 +227,7 @@ const Notification = (props) => {
           </div>
         )
       })}
+
 
 
 
@@ -322,7 +333,7 @@ const Notification = (props) => {
                 onClick={() => setOpenModal(false)}
                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">No</button>
               <button
-              onClick={onApproveLeave}
+                onClick={onApproveLeave}
                 class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">Yes</button>
             </div>
           </div>
