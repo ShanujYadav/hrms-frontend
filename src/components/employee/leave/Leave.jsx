@@ -14,8 +14,9 @@ const Leave = () => {
     fromDate: '',
     toDate: '',
     leaveDays: '',
-  };
+  }
 
+  
   const [data, setData] = useState(initialState)
 
   const [leaveStatus, setLeaveStatus] = useState({

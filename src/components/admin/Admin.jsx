@@ -8,6 +8,7 @@ import AdminTopbar from "./AdminTopbar";
 import EmployeeList from "./employee/EmployeeList";
 import Notification from "./notifications/Notification"
 import EmpProfile from "./employee/EmpProfile";
+import Salery from "./salery/Salery";
 
 export default function Admin() {
     const [currentTab, setCurrentTab] = useState('Dashboard')
@@ -36,6 +37,7 @@ export default function Admin() {
                             <Route path="/" element={<AdminHome />} />
                             <Route path="/employees" element={<EmployeeList item={item} setItem={setItem}/>} />
                             <Route path="/notifications" element={<Notification />} />
+                            <Route path="/salery" element={<Salery />} />
                             <Route path="/employees/empProfile" element={<EmpProfile item={item} setItem={setItem} />} />
                         </Routes>
                     </div>

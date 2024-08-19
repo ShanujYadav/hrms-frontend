@@ -20,12 +20,14 @@ const EmpHome = () => {
   return (
     <div >
       <div class="mt-0 bg-white p-2 rounded-lg shadow">
-        <header class="bg-white shadow p-2 flex justify-between items-center">
+        <header class="flex justify-between items-center">
           <div class="text-xl font-semibold">Welcome, {name}</div>
+          
           {/* <div class="flex items-center space-x-4">
             <div class="text-gray-700">Notifications</div>
             <div class="h-8 w-8 bg-gray-300 rounded-full"></div>
           </div> */}
+
         </header>
         
 {/* 

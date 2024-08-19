@@ -7,6 +7,7 @@ import EmpSidebar from "./EmpSidebar";
 import EmpHome from "./empHome/EmpHome";
 import Leave from "./leave/Leave";
 import Profile from "./profile/Profile";
+import SalerySlip from "./salery/SalerySlip";
 
 
 export default function Employee() {
@@ -34,7 +35,7 @@ export default function Employee() {
                             <Route path="/" element={<EmpHome />} />
                             <Route path="/leave" element={<Leave />} />
                             <Route path="/profile" element={<Profile />} />
-                            {/* <Route path="/notifications" element={<Notification />} /> */}
+                            <Route path="/salerySlip" element={<SalerySlip />} />
                         </Routes>
                     </div>
                 </div>

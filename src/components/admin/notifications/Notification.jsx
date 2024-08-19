@@ -27,6 +27,8 @@ const Notification = (props) => {
     leaveType: "",
     leaveDays: "",
   }
+
+  
   const [onApprove, setOnApprove] = useState(initialState)
 
   const customStyles = {
@@ -75,7 +77,7 @@ const Notification = (props) => {
     }
   }
 
-  
+
   const onClickRegAction = (id) => {
     setReqId(id)
     setOpenRegModal(true)
@@ -186,16 +188,16 @@ const Notification = (props) => {
         return (
           <div ikey={index} class="relative h-auto mb-2 ml-5  flex flex-grow flex-row items-stretch rounded-[10px] border-[2px] border-yellow-400 bg-yellow-100 bg-clip-border dark:border-[#ffffff33] dark:bg-navy-800 dark:text-white dark:shadow-none">
             <div class="ml-[12px] w-full flex flex-col overflow-hidden">
-            <div class="flex justify-between items-center">
-            <p class="text-base font-semibold mt-2">Employee Register Request</p>
-            <button
-              className="text-black font-semibold py-2 px-4 rounded-full transition-colors duration-200 ease-in-out flex items-center justify-center ml-auto mt-2"
+              <div class="flex justify-between items-center">
+                <p class="text-base font-semibold mt-2">Employee Register Request</p>
+                <button
+                  className="text-black font-semibold py-2 px-4 rounded-full transition-colors duration-200 ease-in-out flex items-center justify-center ml-auto mt-2"
 
-            >
-              <RxCrossCircled size={24} />
-            </button>
+                >
+                  <RxCrossCircled size={24} />
+                </button>
 
-          </div>
+              </div>
               <hr class="border-0 bg-black h-px my-2" />
               <table class="w-full ">
                 <thead>

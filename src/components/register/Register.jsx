@@ -130,7 +130,7 @@ const Register = () => {
                     <a href="javascript:void(0)">
                         <img src={logo} alt="logo" className="w-62 h-15 inline-block" />
                     </a>
-                    <h4 className="text-base text-lg font-semibold mt-3">Sign up into your account</h4>
+                    <h4 className="text-lg font-semibold mt-3">Sign up into your account</h4>
                 </div>
             </div>
             <div className="p-4 rounded-xl">

@@ -7,6 +7,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa"
 import { RiUserShared2Fill } from "react-icons/ri";
 import Modal from 'react-modal';
+import { GrNotes } from "react-icons/gr";
 
 
 
@@ -48,6 +49,16 @@ const EmpSidebar = (props) => {
                                 <GoHome size={20} color='black' />
                             </span>
                             <span class="ml-2 text-sm font-semibold tracking-wide truncate">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            onClick={() => onClickTab('salerySlip')}
+                            class={`${activeTab == 'employees' ? 'bg-blue-200' : ''} relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-100 dark:hover:bg-gray-600 text-black hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6`}>
+                            <span class="inline-flex justify-center items-center ml-4">
+                                < GrNotes size={20} />
+                            </span>
+                            <span class="ml-2 text-sm font-semibold tracking-wide truncate">Salery Slip</span>
                         </a>
                     </li>
                     <li>

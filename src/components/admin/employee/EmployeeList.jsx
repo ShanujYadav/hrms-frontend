@@ -20,6 +20,8 @@ const EmployeeList = (props) => {
         }
       }, [])
 
+
+      
     useEffect(() => {
         let isMounted = true;
         async function fetchData() {

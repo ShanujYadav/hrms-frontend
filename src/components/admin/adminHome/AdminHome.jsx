@@ -60,9 +60,7 @@ const AdminHome = () => {
         }
     }, [])
 
-
     console.log("pendingReq---",pendingReq)
-
     console.log("leaveReq---",leaveReq)
 
     return (

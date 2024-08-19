@@ -3,8 +3,7 @@ import logo from '../../assets/img/logo.png'
 import altlogo from '../../assets/img/ANlogo.png'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux'
-import { getEmpLogin } from '../../store/action/HomeAction';
+import { useDispatch } from 'react-redux';
 import { ApiCaller } from '../utils/ApiCaller';
 import { getEmpProfileData } from '../../store/action/ProfileAction';
 
@@ -124,6 +123,8 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+
+            
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
-
+import { GrNotes } from "react-icons/gr";
 
 
 
@@ -71,6 +71,16 @@ const AdminSidebar = (props) => {
                 <IoMdNotifications size={20} />
               </span>
               <span class="ml-2 text-sm tracking-wide truncate">Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              onClick={() => onClickTab('salery')}
+              class={`${activeTab=='salery' ? 'bg-blue-800':''} relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6`}>
+              <span class="inline-flex justify-center items-center ml-4"> 
+                <GrNotes size={20} />
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">Salery</span>
             </a>
           </li>
           <li>

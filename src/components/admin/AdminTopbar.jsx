@@ -20,6 +20,12 @@ const AdminTopbar = (props) => {
     else if (currentTab == 'notifications') {
       setActivwTab('Notifications')
     }
+    else if (currentTab == 'salery') {
+      setActivwTab('Salery')
+    }
+    else{
+      setActivwTab('Admin Dashboard')
+    }
   }, [props])
 
 
